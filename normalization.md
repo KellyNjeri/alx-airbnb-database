@@ -1,17 +1,20 @@
-# Task 1 — Normalization to 3NF
+# Normalization of Airbnb Database to 3NF
 
-## 1NF
-- All attributes are atomic (e.g., first_name and last_name separate).
-- No repeating groups.
+## Step 1: First Normal Form (1NF)
+- Ensured all tables have primary keys (UUID as CHAR(36)).
+- All attributes hold atomic values (e.g., `phone_number` is a single value, `pricepernight` is a single decimal).
+- No repeating groups or arrays.
 
-## 2NF
-- Each table has a single-column primary key (no partial dependency issues).
+## Step 2: Second Normal Form (2NF)
+- All non-key attributes fully depend on the primary key of their respective tables.
+- Example: In the `bookings` table, `start_date`, `end_date`, and `status` depend only on `booking_id`.
 
-## 3NF
-- Non-key attributes depend only on the key:
-  - `total_price` is stored for performance but derivable (nights × pricepernight); acceptable as a denormalized field with business logic to keep consistent.
-  - Enum-like attributes (`role`, `status`, `payment_method`) enforced by CHECK constraints.
+## Step 3: Third Normal Form (3NF)
+- Removed any transitive dependencies:
+  - User details are stored only in the `users` table.
+  - Property details remain in the `properties` table.
+  - Payment details link to bookings but do not duplicate user or property info.
+- Derived attributes (e.g., `total_price`) remain as business requirements.
 
-## Notes
-- Foreign keys ensure referential integrity.
-- Indexes added on frequent joins and lookups.
+## Conclusion
+The database design already complies with 3NF. No further decomposition was required.
