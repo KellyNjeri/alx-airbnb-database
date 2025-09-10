@@ -1,8 +1,4 @@
--- performance.sql
-
--- Step 1: Initial Query
--- Retrieve all bookings along with user, property, and payment details
-SELECT 
+SELECT
     b.booking_id,
     b.start_date,
     b.end_date,
